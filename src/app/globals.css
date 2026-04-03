@@ -12,12 +12,15 @@
   --color-ser-coral: #FF6B6B;
   --color-ser-lavender: #F5F0FF;
   --color-ser-cream: #FFFBF0;
+  --color-ser-phone-bezel: #F2F1EF;
 
   --font-sans: var(--font-inter);
 }
 
-html {
+html, body {
+  background-color: #3621A4;
   scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
 }
 
 ::selection {

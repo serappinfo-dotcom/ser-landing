@@ -17,7 +17,7 @@ const styles: Record<Variant, string> = {
 };
 
 export function Button({ variant = "primary", href, children, className, ...props }: ButtonProps) {
-  const cls = `inline-flex items-center justify-center rounded-[28px] px-10 py-4 text-lg font-semibold transition-all duration-200 cursor-pointer ${styles[variant]} ${className ?? ""}`;
+  const cls = `inline-flex items-center justify-center rounded-[28px] px-7 py-3 text-base sm:px-10 sm:py-4 sm:text-lg font-semibold transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-ser-purple ${styles[variant]} ${className ?? ""}`;
 
   if (href) {
     return (

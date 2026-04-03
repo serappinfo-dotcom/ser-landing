@@ -1,92 +1,87 @@
 import { SectionLabel } from "@/components/ui/SectionLabel";
+import { ShieldIcon, StarIcon } from "@/components/ui/icons";
+import Image from "next/image";
+import type { Dictionary } from "@/i18n/types";
 
-const testimonials = [
-  {
-    quote:
-      "Después de mi cirugía me sentía perdido. Con SER volví a sentir que podía hacer cosas por mí mismo.",
-    name: "Carlos, 62 años",
-    location: "Bogotá",
-  },
-  {
-    quote:
-      "Mi mamá tiene hipertensión y no sabía cómo ayudarla. SER nos dio una guía clara y ahora ella se siente más tranquila.",
-    name: "Andrea, 38 años",
-    location: "Medellín",
-  },
-  {
-    quote:
-      "Es tan sencillo que hasta mi esposa la usa conmigo. Nos sentimos acompañados de verdad.",
-    name: "Jorge, 55 años",
-    location: "Cali",
-  },
-];
-
-const trustBadges = [
-  "Guías médicas internacionales",
-  "Datos protegidos y seguros",
-  "Equipo profesional real",
-];
+interface SocialProofProps {
+  dict: Dictionary["socialProof"];
+}
 
 function Stars() {
   return (
-    <div className="flex gap-1 mb-3" aria-label="5 estrellas">
+    <div className="flex gap-1 mb-3" aria-label="5 stars">
       {[...Array(5)].map((_, i) => (
-        <svg key={i} width="16" height="16" viewBox="0 0 24 24" fill="#5F33E1">
-          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-        </svg>
+        <StarIcon key={i} className="text-ser-purple-light" />
       ))}
     </div>
   );
 }
 
-export function SocialProof() {
+export function SocialProof({ dict }: SocialProofProps) {
   return (
-    <section className="bg-ser-lavender py-20 md:py-24">
-      <div className="mx-auto max-w-7xl px-6 text-center">
-        <SectionLabel>Personas reales, resultados reales</SectionLabel>
-
-        <h2 className="mt-4 text-2xl md:text-4xl font-bold text-gray-900 leading-tight">
-          Respaldado por la ciencia,{" "}
-          <br className="hidden sm:block" />
-          diseñado para ti
-        </h2>
+    <section aria-label={dict.label} className="bg-ser-lavender py-20 md:py-24">
+      <div className="mx-auto max-w-7xl px-6">
+        {/* Hero image with overlay text */}
+        <div className="relative rounded-[24px] overflow-hidden mb-16 h-64 sm:h-80 md:h-96">
+          <Image
+            src="/images/photos/couple-laptop.jpg"
+            alt=""
+            fill
+            loading="lazy"
+            sizes="100vw"
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-ser-purple/80 via-ser-purple/50 to-transparent" />
+          <div className="absolute inset-0 flex flex-col justify-center px-8 sm:px-12 md:px-16">
+            <SectionLabel color="text-white/70">{dict.label}</SectionLabel>
+            <h2 className="mt-4 text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-tight max-w-lg">
+              {dict.title}{" "}
+              <br className="hidden sm:block" />
+              {dict.titleHighlight}
+            </h2>
+          </div>
+        </div>
 
         {/* Trust badges */}
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-          {trustBadges.map((badge) => (
+        <div className="flex flex-wrap items-center justify-center gap-4 mb-12">
+          {dict.trustBadges.map((badge, i) => (
             <span
-              key={badge}
+              key={i}
               className="inline-flex items-center gap-2 bg-white rounded-full px-4 py-2 text-sm text-gray-700 shadow-sm"
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3621A4" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-              </svg>
+              <ShieldIcon className="stroke-ser-purple" />
               {badge}
             </span>
           ))}
         </div>
 
         {/* Testimonials */}
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-          {testimonials.map((t) => (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {dict.testimonials.map((t, i) => (
             <div
-              key={t.name}
-              className="bg-white rounded-[20px] p-7 text-left shadow-sm"
+              key={i}
+              className="bg-white rounded-[20px] overflow-hidden shadow-sm hover:shadow-md transition-shadow"
             >
-              <Stars />
-              <p className="text-gray-800 leading-relaxed italic text-sm">
-                &ldquo;{t.quote}&rdquo;
-              </p>
-              <div className="mt-5 flex items-center gap-3">
-                <div className="w-9 h-9 rounded-full bg-ser-lavender flex items-center justify-center">
-                  <span className="text-sm font-bold text-ser-purple">
-                    {t.name.charAt(0)}
-                  </span>
-                </div>
-                <div>
-                  <p className="text-sm font-semibold text-gray-900">{t.name}</p>
-                  <p className="text-xs text-gray-500">{t.location}</p>
-                </div>
+              {/* Photo - taller to show faces properly */}
+              <div className="relative h-48 sm:h-52">
+                <Image
+                  src={t.photo}
+                  alt={t.name}
+                  fill
+                  loading="lazy"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-cover object-top"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-white via-white/10 to-transparent" />
+              </div>
+
+              <div className="px-7 pb-7 -mt-2 relative">
+                <Stars />
+                <p className="text-gray-800 leading-relaxed italic text-sm">
+                  &ldquo;{t.quote}&rdquo;
+                </p>
+                <p className="mt-4 text-sm font-semibold text-gray-900">{t.name}</p>
+                <p className="text-xs text-gray-500">{t.location}</p>
               </div>
             </div>
           ))}
