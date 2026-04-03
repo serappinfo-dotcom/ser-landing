@@ -33,6 +33,18 @@ export function Footer({ dict }: FooterProps) {
                 </svg>
                 Instagram
               </a>
+              <a
+                href="https://www.facebook.com/share/19v3mdCksE/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 border border-gray-700 rounded-lg px-4 py-2 text-sm text-gray-400 hover:text-white hover:border-gray-500 transition-colors"
+                aria-label="Facebook"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
+                </svg>
+                Facebook
+              </a>
             </div>
           </div>
 
